@@ -1,4 +1,6 @@
 from modules import *
+import winsound
+import time
 
 batteries = 0
 parallel = False
@@ -56,4 +58,29 @@ while module != "defused":
         simon_says(vowel, strikes)
 
     if module == "who":
-        whos_on_first()
+        who_is_on_first()
+
+    if module == "memory":
+        memory()
+
+    if module == "morse":
+        morse_code()
+
+    if module == "complex":
+        complicated_wires(even, parallel, batteries)
+
+    if module == "sequence":
+        wire_sequence()
+
+    if module == "maze":
+        maze()
+
+    if module == "password":
+        password()
+
+    if module == "knobs":
+        print(knobs())
+        print("")
+
+print("CONGLATURATION")
+winsound.PlaySound("defused.wav", winsound.SND_FILENAME)
