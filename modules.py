@@ -63,7 +63,7 @@ def hold_button(car, frk, batteries):
 
 
 def keypad():
-    column_1 = ["tennis", "a-t", "lambda", "lightning", "cat", "h", "back-c"]
+    column_1 = ["tennis", "at", "lambda", "lightning", "cat", "h", "back-c"]
     column_2 = ["back-e", "tennis", "back-c", "squiggle", "white-star", "h", "question"]
     column_3 = ["copyright", "nutsack", "squiggle", "xi", "federer", "lambda", "white-star"]
     column_4 = ["6", "paragraph", "b", "cat", "xi", "question", "smile"]
@@ -83,11 +83,11 @@ def keypad():
     correct_column = -1
 
     for i in range(0, 6, 1):
-        if columns[i].count(symbol_1) == 1 and columns[i].count(symbol_2) == 1 and columns[i].count(symbol_3) == 1 and columns[i].count(symbol_4) == 1:
+        if symbol_1 in columns[i] and symbol_2 in columns[i] and symbol_3 in columns[i] and symbol_4 in columns[i]:
             correct_column = i
             break
 
-    if correct_column == 0:
+    if correct_column == -1:
         print("Something went wrong, try again\n")
         keypad()
 
@@ -442,7 +442,7 @@ def complicated_wires(even, parallel, batteries):
                 wires_to_cut.append(i + 1)
             if current_wire == "bl":
                 wires_to_cut.append(i + 1)
-            if wires_to_cut == "bls":
+            if current_wire == "bls":
                 wires_to_cut.append(i + 1)
 
         # B - cut if >= 2 batteries
@@ -519,8 +519,59 @@ def password():
 
     print("Enter the letters, one column per line")
 
-    for i in range(0, 5, 1):
-        columns.append(input())
+    columns.append(input("column 1: "))
+    columns.append(input("column 2: "))
+
+    possibilities = list()
+
+    for i in range(0, 6, 1):
+        for j in range(0, 6, 1):
+            word = columns[0][i] + columns[1][j]
+            for k in range(0, len(passwords), 1):
+                if passwords[k].startswith(word):
+                    possibilities.append(passwords[k])
+
+    if len(possibilities) == 1:
+        print(possibilities[0])
+        return
+    else:
+        del possibilities[:]
+
+    columns.append(input("column 3: "))
+
+    for i in range(0, 6, 1):
+        for j in range(0, 6, 1):
+            for k in range(0, 6, 1):
+                word = columns[0][i] + columns[1][j] + columns[2][k]
+                for l in range(0, len(passwords), 1):
+                    if passwords[l].startswith(word):
+                        possibilities.append(passwords[l])
+
+    if len(possibilities) == 1:
+        print(possibilities[0])
+        return
+    else:
+        del possibilities[:]
+
+    columns.append(input("column 4: "))
+
+    for i in range(0, 6, 1):
+        for j in range(0, 6, 1):
+            for k in range(0, 6, 1):
+                for l in range(0, 6, 1):
+                    word = columns[0][i] + columns[1][j] + columns[2][k] + columns[3][l]
+                    for m in range(0, len(passwords), 1):
+                        if passwords[m].startswith(word):
+                            possibilities.append(passwords[m])
+
+    if len(possibilities) == 1:
+        print(possibilities[0])
+        return
+    else:
+        for poss in possibilities:
+            print(poss)
+
+    columns.append(input("column 5: "))
 
     for i in range(0, 6, 1):
         for j in range(0, 6, 1):
