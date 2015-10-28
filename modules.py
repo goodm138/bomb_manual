@@ -1,3 +1,6 @@
+from maze import *
+
+
 def panel_wires(even):
     wires = input("Input the wires\n")
 
@@ -501,7 +504,17 @@ def wire_sequence():
 
 
 def maze():
-    print("You're on your own here")
+    marker_1 = input("Marker 1 at:\n")
+    marker_2 = input("Marker 2 at:\n")
+
+    start = input("Current position:\n")
+    end = input("Goal position:\n")
+
+    maze_layout = get_maze(marker_1, marker_2)
+
+    path = maze_search(maze_layout, start, end)
+
+    print_path(path)
 
 
 def password():
